@@ -19,22 +19,26 @@ function RanderOnecomment({comment}) {
 </div>
   );
 }  
+
     const DetailedList=(props)=>{
-      const dishDetails=this.props.dishs2;
-        const dishComments=dishDetails.comments.map((comment)=>{
-               return(
+     if(props.dish!=null)
+     {
+      var dishComments=props.dish.comments.map((comment)=>{
+        return(
+            <div key={comment.id}>
               <RanderOnecomment comment={comment}/>
-               );
-        });
+            </div>
+        );
+    });
      return(
       <div className="container">
       <div className="row">
           <div className="col-12 col-md-5 m-1">
              <Card>
-              <CardImg src={dishDetails.image}></CardImg>
+              <CardImg src={props.dish.image}></CardImg>
               <CardBody>
-               <CardTitle>{dishDetails.name}</CardTitle>
-                <CardText>{dishDetails.description}</CardText>
+               <CardTitle>{props.dish.name}</CardTitle>
+                <CardText>{props.dish.description}</CardText>
                </CardBody>
               </Card>
            </div>
@@ -46,7 +50,14 @@ function RanderOnecomment({comment}) {
 
         </div>
      );
+     }
+     else{
+       return(
+         <div></div>
+       );
+     }
 
     }
+  
 
 export default DetailedList;
