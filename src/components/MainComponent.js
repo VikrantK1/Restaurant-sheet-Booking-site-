@@ -1,32 +1,43 @@
 import React,{Component}  from 'react';
-import Menu from './MenuComponent'
-import {DISHES} from '../shared/dishes'
-import DetailedList from './DishdetailComponent'
-import Header from './HeaderComponent'
-import Footer from './FooterComponent'
+import Menu from './MenuComponent';
+import {DISHES} from '../shared/dishes';
+import DetailedList from './DishdetailComponent';
+import Header from './HeaderComponent';
+import Home from './HomeComponent';
+import Footer from './FooterComponent';
+import {Switch,Route, Redirect} from 'react-router-dom';
 class Main extends Component  {
     constructor(props)
     {
         super(props);
-        this.state={dishes:DISHES,
-              onSelectedDishId:null
+        this.state={dishes:DISHES
         }
     }
-    onDishselected(dishId)
-    {
+    // onDishselected(dishId)
+    // {
         
-        this.setState({onSelectedDishId:dishId});
+    //     this.setState({onSelectedDishId:dishId});
        
-    }
+    // }
    
   render()
   {
-   
+   const HomePage=()=>{
+     return(
+
+      <div>
+        <Home/>
+      </div>
+     );
+   }
     return (
         <div>
            <Header/>
-          <Menu dishes={this.state.dishes} onClick={(dishId)=>this.onDishselected(dishId)} />
-          <DetailedList dish={this.state.dishes.filter((dish)=> dish.id===this.state.onSelectedDishId)[0]}/>
+            <Switch>
+              <Route path="/home" component={HomePage}/>
+              <Route exact path="/menu" component={()=><Menu dishes={this.state.dishes}/>}/>
+              <Redirect to="/home"/>
+            </Switch>
           <Footer/>
         </div>
       );
